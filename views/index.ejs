@@ -48,6 +48,16 @@
       <div class="card">
         <h3><%= s.title %></h3>
         <p><%= s.desc.substring(0, 100) %>...</p>
+        <% if (typeof scholarships !== 'undefined') { %>
+  <% scholarships.forEach((s, index) => { %>
+    <div class="card">
+      <h3><%= s.title %></h3>
+      <p><%= s.desc.substring(0, 100) %>...</p>
+    </div>
+  <% }) %>
+<% } else { %>
+  <p>No scholarships data provided.</p>
+<% } %>
         <a href="/scholarship/<%= index %>" class="btn">View Details</a>
       </div>
     <% }) %>
