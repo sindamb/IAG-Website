@@ -14,6 +14,14 @@ app.get('/', (req, res) => {
   res.render('index'); // This will render views/index.ejs
 });
 
+app.get("/", (req, res) => {
+    const projects = [
+        { title: "Project 1", desc: "Description 1" },
+        { title: "Project 2", desc: "Description 2" },
+    ];
+    res.render("index", { projects });
+});
+
 // Bind to Render's port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
