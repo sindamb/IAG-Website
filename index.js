@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 
     // Pass projects to the view
     res.render("index", { projects });
+    res.render("index", {scholarships});
 });
 
 // Start server
