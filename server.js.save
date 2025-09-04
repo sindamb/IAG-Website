@@ -1,0 +1,77 @@
+const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const app = express();
+const PORT = 3000;
+
+// Middleware
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.use(session({
+  secret: 'IAGSecret123',
+  resave: false,
+  saveUninitialized: true
+}));
+
+// Data storage
+let projects = [
+  { title: "Telescope Initiative", desc: "Providing access to telescopes for students." },
+  { title: "Astro Workshops", desc: "Organizing educational workshops." }
+];
+let donations = [];
+
+const adminCredentials = { username: "admin", password: "admin123" };
+
+// Routes
+app.get('/', (req, res) => {
+  res.render('index', { projects, donationMessage: null });
+});
+
+app.post('/donate', (req, res) => {
+  const { name, email, amount } = req.body;
+  donations.push({ name, email, amount });
+  res.render('index', { projects, donationMessage: `Thank you ${name} for donating $${amount}!` });
+});
+
+app.get('/login', (req, res) => {
+  res.render('login', { error: null });
+});
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if(username === adminCredentials.username && password === adminCredentials.password){
+    req.session.user = username;
+    res.redirect('/admin');
+  } else {
+    res.render('login', { error: "Invalid credentials!" });
+  }
+});
+
+app.get('/admin', (req, res) => {
+  if(req.session.user){
+    res.render('admin', { projects, donations });
+  } else {
+    res.redirect('/login');
+  }
+});
+
+app.post('/admin/add-project', (req, res) => {
+  if(req.session.user){
+    const { title, desc } = req.body;
+    projects.push({ title, desc });
+    res.redirect('/admin');
+  } else {
+    res.redirect('/login');
+  }
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});

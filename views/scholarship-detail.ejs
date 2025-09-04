@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= scholarship.title %></title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="logo">IAG</div>
+  <a href="/">Home</a>
+</header>
+
+<section>
+  <h2><%= scholarship.title %></h2>
+  <p><%= scholarship.desc %></p>
+  <% if(scholarship.file){ %>
+    <p>Attached file: <a href="<%= scholarship.file %>" target="_blank">View</a></p>
+    <% if(scholarship.file.match(/\.(jpg|jpeg|png|gif)$/i)){ %>
+      <img src="<%= scholarship.file %>" style="max-width:400px; margin-top:10px;">
+    <% } %>
+  <% } %>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IAG</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="logo">IAG</div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#scholarships">Scholarships</a></li>
+      <li><a href="#donations">Donations</a></li>
+      <li><a href="/login">Admin</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Home Section -->
+<section id="home" class="hero">
+  <h1>Welcome to Inzagi Astronomy Group</h1>
+  <p>Exploring the universe, empowering young astronomers, and sharing knowledge with the community.</p>
+  <a href="#projects" class="btn">Explore Projects</a>
+</section>
+
+<!-- Projects Section -->
+<section id="projects">
+  <h2>Our Projects</h2>
+  <div class="cards">
+    <% projects.forEach(p => { %>
+      <div class="card">
+        <h3><%= p.title %></h3>
+        <p><%= p.desc %></p>
+      </div>
+    <% }) %>
+  </div>
+</section>
+<section id="scholarships">
+  <h2>Scholarships</h2>
+  <div class="cards">
+    <% scholarships.forEach((s, index) => { %>
+      <div class="card">
+        <h3><%= s.title %></h3>
+        <p><%= s.desc.substring(0, 100) %>...</p>
+        <a href="/scholarship/<%= index %>" class="btn">View Details</a>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+
+<!-- Donations Section -->
+<section id="donations">
+  <h2>Donations</h2>
+  <p>Your support helps us fund equipment, workshops, and research programs.</p>
+  <button id="show-donation" class="btn">Donate Now</button>
+
+  <form id="donation-form" action="/donate" method="POST" style="display:none; margin-top:20px;">
+    <input type="text" name="name" placeholder="Your Name" required><br>
+    <input type="email" name="email" placeholder="Your Email" required><br>
+    <input type="number" name="amount" placeholder="Donation Amount ($)" required><br>
+    <button type="submit">Submit Donation</button>
+  </form>
+
+  <% if(donationMessage){ %>
+    <p style="color: green; margin-top: 10px;"><%= donationMessage %></p>
+  <% } %>
+</section>
+
+<script>
+document.getElementById('show-donation').addEventListener('click', function(){
+  document.getElementById('donation-form').style.display = 'block';
+  this.style.display = 'none';
+});
+</script>
+
+
+<footer>
+  <p>&copy; 2025 Inzagi Astronomy Group</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <h2>Admin Panel</h2>
+  <a href="/logout">Logout</a>
+</header>
+
+<section>
+  <h3>Add Project</h3>
+  <form action="/admin/add-project" method="POST">
+    <input type="text" name="title" placeholder="Project Title" required><br><br>
+    <textarea name="desc" placeholder="Project Description" required></textarea><br><br>
+    <button type="submit">Add Project</button>
+  </form>
+</section>
+
+<section>
+  <h3>Existing Projects</h3>
+  <ul>
+    <% projects.forEach(p => { %>
+      <li><strong><%= p.title %>:</strong> <%= p.desc %></li>
+    <% }) %>
+  </ul>
+</section>
+
+<section>
+  <h3>Donations Received</h3>
+  <% if(donations.length === 0){ %>
+    <p>No donations yet.</p>
+  <% } else { %>
+    <ul>
+      <% donations.forEach(d => { %>
+        <li><strong><%= d.name %></strong> donated $<%= d.amount %> (Email: <%= d.email %>)</li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+<section>
+  <h3>Add Scholarship</h3>
+  <form action="/admin/add-scholarship" method="POST" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="Scholarship Title" required><br><br>
+    <textarea name="desc" placeholder="Scholarship Description" required></textarea><br><br>
+    <label>Upload Document or Photo:</label><br>
+    <input type="file" name="file"><br><br>
+    <button type="submit">Add Scholarship</button>
+  </form>
+</section>
+
+
+<section>
+  <h3>Existing Scholarships</h3>
+  <% if(scholarships.length === 0){ %>
+    <p>No scholarships yet.</p>
+  <% } else { %>
+    <ul>
+      <% scholarships.forEach(s => { %>
+        <li><strong><%= s.title %></strong>: <%= s.desc %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>
+
+</body>
+</html>
