@@ -13,10 +13,7 @@ app.use(express.static("public"));
 
 // Sample route with projects array
 app.get("/", (req, res) => {
-    const projects = [
-        { title: "Project A", desc: "This is project A" },
-        { title: "Project B", desc: "This is project B" },
-    ];
+    const scholarships = [];
 
     // Pass projects to the view
     res.render("index", { projects });
