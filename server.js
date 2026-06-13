@@ -130,7 +130,7 @@ app.get('/admin', (req, res) => {
   } else {
     res.redirect('/login');
   }
-});
+});   
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
@@ -144,5 +144,5 @@ app.get('/', (req, res) => {
 
 // Start server
 app.listen(port,'0.0.0.0', () => {
-  console.log('server is running on port${PORT}');
+  console.log(`server is running on port${PORT}`);
 });
